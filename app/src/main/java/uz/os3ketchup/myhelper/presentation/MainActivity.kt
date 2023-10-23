@@ -1,7 +1,8 @@
-package uz.os3ketchup.myhelper
+package uz.os3ketchup.myhelper.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import uz.os3ketchup.myhelper.R
 import uz.os3ketchup.myhelper.di.DaggerAuthComponent
 
 class MainActivity : AppCompatActivity() {
@@ -12,6 +13,5 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
     }
 }

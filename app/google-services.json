@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "951292318217",
+    "project_id": "my-helper-a42bb",
+    "storage_bucket": "my-helper-a42bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951292318217:android:d67020cf8e63e926c95ed8",
+        "android_client_info": {
+          "package_name": "uz.os3ketchup.myhelper"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaqyI-_OnQASAPWJMtByvshT765DjlRn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

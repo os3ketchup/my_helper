@@ -15,7 +15,6 @@ import uz.os3ketchup.myhelper.R
 import uz.os3ketchup.myhelper.databinding.FragmentOtpBinding
 import uz.os3ketchup.myhelper.presentation.viewmodels.AuthViewModel
 import uz.os3ketchup.myhelper.presentation.viewmodels.Error
-import uz.os3ketchup.myhelper.presentation.viewmodels.Initial
 import uz.os3ketchup.myhelper.presentation.viewmodels.Progress
 import uz.os3ketchup.myhelper.presentation.viewmodels.Result
 import uz.os3ketchup.myhelper.presentation.viewmodels.ViewModelFactory
@@ -64,7 +63,6 @@ class OtpFragment : Fragment() {
         observeViewModel()
         with(binding) {
             btnOtp.setOnClickListener {
-
                 val etCode = etOtp.text.toString()
                 if (etCode.isNotEmpty()) {
                     val credential = PhoneAuthProvider.getCredential(viewModel.mVerificationId, etCode)
@@ -91,17 +89,13 @@ class OtpFragment : Fragment() {
                 is Error -> {
 
                 }
-                is Initial->{
-                    binding.btnOtp.isEnabled = true
-                    binding.pbLoading.visibility = View.VISIBLE
-                }
             }
         }
     }
 
 
     private fun launchUserFragment() {
-
+        findNavController().navigate(OtpFragmentDirections.actionOtpFragmentToUserFragment())
     }
 
     override fun onDestroyView() {

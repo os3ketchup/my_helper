@@ -25,21 +25,12 @@ class AuthViewModel @Inject constructor(
     private val repository: AuthRepository,
 ) : ViewModel() {
 
-    /*private val _isLoadingState: MutableLiveData<Boolean> = MutableLiveData()
-    val isLoadingState get() = _isLoadingState
-
-    private val _isSuccessState: MutableLiveData<Boolean> = MutableLiveData()
-    val isSuccessState get() = _isSuccessState
-
-    private val _isFailureState: MutableLiveData<Boolean> = MutableLiveData()
-    val isFailureState get() = _isFailureState*/
-
 
     private val currentUser: FirebaseAuth
         get() = repository.currentUser
 
 
-    private val _state = MutableLiveData<State>(Initial)
+    private val _state = MutableLiveData<State>()
     val state: LiveData<State>
         get() = _state
 
@@ -87,6 +78,11 @@ class AuthViewModel @Inject constructor(
             }
 
     }
+
+    fun signOut(){
+        currentUser.signOut()
+    }
+
     companion object{
         const val SUCCESS = "success"
     }

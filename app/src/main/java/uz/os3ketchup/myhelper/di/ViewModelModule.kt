@@ -5,6 +5,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import uz.os3ketchup.myhelper.presentation.viewmodels.AuthViewModel
+import uz.os3ketchup.myhelper.presentation.viewmodels.UserViewModel
 
 @Module
 interface ViewModelModule {
@@ -13,4 +14,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(AuthViewModel::class)
     fun bindAuthViewModel(viewModel:AuthViewModel):ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(UserViewModel::class)
+    fun bindUserViewModel(viewModel:UserViewModel):ViewModel
 }

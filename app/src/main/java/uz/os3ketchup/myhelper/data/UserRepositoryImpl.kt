@@ -1,5 +1,6 @@
 package uz.os3ketchup.myhelper.data
 
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
@@ -12,7 +13,7 @@ import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
     private val usersReference: DatabaseReference,
-    private val firebase:Firebase
+    private val firebase: Firebase
 ) : UserRepository {
 
 
@@ -20,7 +21,7 @@ class UserRepositoryImpl @Inject constructor(
         get() = firebase.auth.currentUser?.uid
 
     override fun insertUser(user: User) {
-        usersReference.child(user.uId).setValue(user)
+        usersReference.child(usersReference.push().key!!).setValue(user)
     }
 
     override fun deleteUser(uId: String) {
@@ -28,40 +29,28 @@ class UserRepositoryImpl @Inject constructor(
     }
 
 
-    override fun getUser(userId: String): User {
-        var user = User()
-        getUserList().forEach {
-            if (it.uId == userId) {
-                user = it
-            }
-        }
-        return user
+    override fun getUser() {
     }
 
-    override fun getUserList(): List<User> {
-        val list = ArrayList<User>()
-        userId?.let {
-            val callback = object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for (child in snapshot.children) {
-                        val user = child.getValue(User::class.java)
-                        user?.let {
-                            if (it.uId != userId) {
-                                list.add(it)
-                            }
-                        }
+    override fun getUserList(list:MutableLiveData<List<User>>) {
+        val eventListener = object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val dataList = mutableListOf<User>()
+                for (child in snapshot.children){
+                    val user = child.getValue(User::class.java)
+                    user?.let {
+                        dataList.add(user)
                     }
+                    list.postValue(dataList)
                 }
 
-                override fun onCancelled(error: DatabaseError) {
-
-                }
             }
 
-            usersReference.addValueEventListener(callback)
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
         }
-        return list
-
+        usersReference.addValueEventListener(eventListener)
     }
-
 }
+

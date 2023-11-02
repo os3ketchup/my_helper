@@ -6,10 +6,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.Firebase
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.database
 import uz.os3ketchup.myhelper.AuthApp
 import uz.os3ketchup.myhelper.databinding.FragmentUserBinding
+import uz.os3ketchup.myhelper.di.DataModule.Companion.USERS_REF
+import uz.os3ketchup.myhelper.domain.User
 import uz.os3ketchup.myhelper.presentation.MainActivity
 import uz.os3ketchup.myhelper.presentation.viewmodels.UserViewModel
 import uz.os3ketchup.myhelper.presentation.viewmodels.ViewModelFactory
@@ -52,9 +61,11 @@ class UserFragment : Fragment() {
         binding.btnUser.setOnClickListener {
             val userName = binding.etUser.text.toString()
             viewModel.insertUser(userName = userName, photoUrl = "")
+
             launchMainActivity()
         }
     }
+
 
     private fun launchMainActivity() {
         val intent = Intent(requireActivity(), MainActivity::class.java)

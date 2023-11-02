@@ -6,11 +6,17 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.database.database
 import uz.os3ketchup.myhelper.domain.AuthRepository
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(private val firebase: Firebase) : AuthRepository {
+    init {
+        firebase.database.setPersistenceEnabled(true)
+    }
+
     override val currentUser: FirebaseAuth
         get() = firebase.auth
+
 
 }

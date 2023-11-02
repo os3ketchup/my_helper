@@ -17,6 +17,7 @@ interface AuthComponent {
     fun inject(otpFragment: OtpFragment)
     fun inject(application: AuthApp)
     fun inject(userFragment: UserFragment)
+    fun inject(mainActivity: MainActivity)
 
 
     @Component.Factory

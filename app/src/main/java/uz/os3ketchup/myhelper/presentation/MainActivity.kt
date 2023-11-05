@@ -5,6 +5,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -14,6 +17,7 @@ import com.google.firebase.database.database
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import uz.os3ketchup.myhelper.AuthApp
+import uz.os3ketchup.myhelper.R
 import uz.os3ketchup.myhelper.databinding.ActivityMainBinding
 import uz.os3ketchup.myhelper.di.DataModule.Companion.USERS_REF
 import uz.os3ketchup.myhelper.domain.User
@@ -42,12 +46,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        Firebase.database.setPersistenceEnabled(true)
         component.inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
 
-        viewModel.list.observe(this){
-            binding.tvHello.text = it[0].name
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.main_container) as NavHostFragment
+        NavigationUI.setupWithNavController(binding.bottomNavigation, navHostFragment.navController)
+        viewModel.list.observe(this) {
+
         }
 
 

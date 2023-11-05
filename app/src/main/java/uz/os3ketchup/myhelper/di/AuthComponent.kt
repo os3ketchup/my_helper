@@ -5,6 +5,7 @@ import dagger.BindsInstance
 import dagger.Component
 import uz.os3ketchup.myhelper.AuthApp
 import uz.os3ketchup.myhelper.presentation.MainActivity
+import uz.os3ketchup.myhelper.presentation.fragments.MainFragment
 import uz.os3ketchup.myhelper.presentation.fragments.OtpFragment
 import uz.os3ketchup.myhelper.presentation.fragments.UserFragment
 import uz.os3ketchup.myhelper.presentation.viewmodels.AuthViewModel
@@ -18,6 +19,7 @@ interface AuthComponent {
     fun inject(application: AuthApp)
     fun inject(userFragment: UserFragment)
     fun inject(mainActivity: MainActivity)
+    fun inject(mainFragment: MainFragment)
 
 
     @Component.Factory

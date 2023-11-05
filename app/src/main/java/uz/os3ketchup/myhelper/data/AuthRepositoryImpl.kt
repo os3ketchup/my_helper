@@ -11,9 +11,7 @@ import uz.os3ketchup.myhelper.domain.AuthRepository
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(private val firebase: Firebase) : AuthRepository {
-    init {
-        firebase.database.setPersistenceEnabled(true)
-    }
+
 
     override val currentUser: FirebaseAuth
         get() = firebase.auth

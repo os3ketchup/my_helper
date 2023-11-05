@@ -12,10 +12,9 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_actvity)
+        setContentView(R.layout.activity_login)
 
-        Firebase.initialize(context = this)
-        Firebase.appCheck.installAppCheckProviderFactory(PlayIntegrityAppCheckProviderFactory.getInstance())
+
 
     }
 }

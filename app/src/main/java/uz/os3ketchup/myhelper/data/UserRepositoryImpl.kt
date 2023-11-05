@@ -21,7 +21,7 @@ class UserRepositoryImpl @Inject constructor(
         get() = firebase.auth.currentUser?.uid
 
     override fun insertUser(user: User) {
-        usersReference.child(usersReference.push().key!!).setValue(user)
+        usersReference.child(userId!!).setValue(user)
     }
 
     override fun deleteUser(uId: String) {

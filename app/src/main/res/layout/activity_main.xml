@@ -6,16 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".presentation.MainActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/tv_hello"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/black"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/top_app_bar"
-        app:navigationIcon="@drawable/ic_menu" />
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/main_container"
@@ -26,7 +17,7 @@
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_hello"
+        app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/main_graph" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

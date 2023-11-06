@@ -20,6 +20,7 @@ class UserViewModel @Inject constructor(
     private val _list = MutableLiveData<List<User>>()
     val list: LiveData<List<User>> get() = _list
 
+
     init {
         getList()
     }

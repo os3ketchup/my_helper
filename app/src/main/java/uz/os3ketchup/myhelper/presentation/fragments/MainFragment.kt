@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import uz.os3ketchup.myhelper.AuthApp
 import uz.os3ketchup.myhelper.R
 import uz.os3ketchup.myhelper.databinding.FragmentMainBinding
+import uz.os3ketchup.myhelper.domain.User
 import uz.os3ketchup.myhelper.presentation.adapters.UserListAdapter
 import uz.os3ketchup.myhelper.presentation.adapters.UserListAdapter.Companion.MAX_POOL_SIZE
 import uz.os3ketchup.myhelper.presentation.adapters.UserListAdapter.Companion.VIEW_TYPE_USER
@@ -61,6 +63,10 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun launchFragment(user: User) {
+        findNavController().navigate(MainFragmentDirections.actionMainFragmentToChatFragment(user))
+    }
+
     private fun setupRecyclerView() {
         with(binding.rvUser) {
             userAdapter = UserListAdapter()
@@ -68,9 +74,10 @@ class MainFragment : Fragment() {
             recycledViewPool.setMaxRecycledViews(VIEW_TYPE_USER, MAX_POOL_SIZE)
         }
     }
-    private fun setupClickListener(){
+
+    private fun setupClickListener() {
         userAdapter.onUserItemClickListener = {
-            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
+            launchFragment(it)
         }
     }
 

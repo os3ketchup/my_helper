@@ -10,11 +10,13 @@ import uz.os3ketchup.myhelper.presentation.viewmodels.UserViewModel
 @Module
 interface ViewModelModule {
 
+    @ApplicationScope
     @Binds
     @IntoMap
     @ViewModelKey(AuthViewModel::class)
     fun bindAuthViewModel(viewModel:AuthViewModel):ViewModel
 
+    @ApplicationScope
     @Binds
     @IntoMap
     @ViewModelKey(UserViewModel::class)

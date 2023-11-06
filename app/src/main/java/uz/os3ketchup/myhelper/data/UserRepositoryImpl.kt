@@ -30,6 +30,7 @@ class UserRepositoryImpl @Inject constructor(
 
 
     override fun getUser() {
+
     }
 
     override fun getUserList(list:MutableLiveData<List<User>>) {

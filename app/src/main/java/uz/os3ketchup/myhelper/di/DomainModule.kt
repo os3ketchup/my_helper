@@ -9,6 +9,7 @@ import uz.os3ketchup.myhelper.domain.UserRepository
 
 @Module
 interface DomainModule {
+    @ApplicationScope
     @Binds
     fun provideUserRepository(impl: UserRepositoryImpl): UserRepository
 }

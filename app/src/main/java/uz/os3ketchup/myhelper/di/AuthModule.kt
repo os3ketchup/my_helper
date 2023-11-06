@@ -11,10 +11,11 @@ import uz.os3ketchup.myhelper.domain.AuthRepository
 @Module
 class AuthModule {
 
-
+    @ApplicationScope
     @Provides
     fun provideFirebase(): Firebase = Firebase
 
+    @ApplicationScope
     @Provides
     fun provideAuthRepository(firebaseAuth: Firebase): AuthRepository {
         return AuthRepositoryImpl(firebaseAuth)

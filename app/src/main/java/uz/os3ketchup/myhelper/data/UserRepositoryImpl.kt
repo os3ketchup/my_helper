@@ -7,12 +7,14 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import uz.os3ketchup.myhelper.di.DataModule.Companion.USERS_REF
 import uz.os3ketchup.myhelper.domain.User
 import uz.os3ketchup.myhelper.domain.UserRepository
 import javax.inject.Inject
+import javax.inject.Named
 
 class UserRepositoryImpl @Inject constructor(
-    private val usersReference: DatabaseReference,
+   @Named(USERS_REF) private val usersReference: DatabaseReference,
     private val firebase: Firebase
 ) : UserRepository {
 

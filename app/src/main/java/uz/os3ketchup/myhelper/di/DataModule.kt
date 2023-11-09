@@ -4,6 +4,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 
 
 @Module
@@ -17,9 +18,18 @@ class DataModule {
 
     @ApplicationScope
     @Provides
+    @Named(USERS_REF)
     fun provideReference(firebaseDatabase: FirebaseDatabase): DatabaseReference {
         return firebaseDatabase.getReference(USERS_REF)
     }
+
+    @ApplicationScope
+    @Provides
+    @Named(CATEGORIES_REF)
+    fun provideAnotherReference(firebaseDatabase: FirebaseDatabase): DatabaseReference {
+        return firebaseDatabase.getReference(CATEGORIES_REF)
+    }
+
 
 
 

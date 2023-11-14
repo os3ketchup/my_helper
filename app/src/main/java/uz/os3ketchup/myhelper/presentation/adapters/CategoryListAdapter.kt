@@ -12,7 +12,9 @@ import uz.os3ketchup.myhelper.domain.User
 class CategoryListAdapter :
     ListAdapter<Category, CategoryItemViewHolder>(CategoryItemDiffCallback()) {
 
+    private lateinit var helper:ItemCategoryBinding
     var onCategoryItemClickListener: ((Category) -> Unit)? = null
+    var onPopupMenuClickListener: ((ItemCategoryBinding,Category) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryItemViewHolder {
 
@@ -27,9 +29,14 @@ class CategoryListAdapter :
 
     override fun onBindViewHolder(holder: CategoryItemViewHolder, position: Int) {
         val binding = holder.item
+        helper = binding
         val category = getItem(position)
         binding.root.setOnClickListener {
             onCategoryItemClickListener?.invoke(category)
+        }
+        binding.btnMore.setOnClickListener {
+
+            onPopupMenuClickListener?.invoke(binding,category)
         }
         binding.tvCategoryName.text = category.name
 

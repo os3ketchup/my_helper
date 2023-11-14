@@ -8,12 +8,16 @@ import uz.os3ketchup.myhelper.presentation.MainActivity
 import uz.os3ketchup.myhelper.presentation.fragments.ChatFragment
 import uz.os3ketchup.myhelper.presentation.fragments.MainFragment
 import uz.os3ketchup.myhelper.presentation.fragments.OtpFragment
+import uz.os3ketchup.myhelper.presentation.fragments.ProductFragment
 import uz.os3ketchup.myhelper.presentation.fragments.UserFragment
-import uz.os3ketchup.myhelper.presentation.viewmodels.AuthViewModel
-import uz.os3ketchup.myhelper.presentation.viewmodels.UserViewModel
 
 @ApplicationScope
-@Component(modules = [AuthModule::class, ViewModelModule::class, DataModule::class, DomainModule::class])
+@Component(
+    modules = [AuthModule::class,
+        ViewModelModule::class,
+        DataModule::class,
+        DomainModule::class]
+)
 interface AuthComponent {
 
     fun inject(otpFragment: OtpFragment)
@@ -21,7 +25,8 @@ interface AuthComponent {
     fun inject(userFragment: UserFragment)
     fun inject(mainActivity: MainActivity)
     fun inject(mainFragment: MainFragment)
-    fun inject(chatFragment:ChatFragment)
+    fun inject(chatFragment: ChatFragment)
+    fun inject(productFragment: ProductFragment)
 
 
     @Component.Factory

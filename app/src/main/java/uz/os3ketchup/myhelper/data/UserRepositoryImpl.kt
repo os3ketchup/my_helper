@@ -13,47 +13,47 @@ import uz.os3ketchup.myhelper.domain.UserRepository
 import javax.inject.Inject
 import javax.inject.Named
 
-class UserRepositoryImpl @Inject constructor(
-   @Named(USERS_REF) private val usersReference: DatabaseReference,
-    private val firebase: Firebase
-) : UserRepository {
+    class UserRepositoryImpl @Inject constructor(
+       @Named(USERS_REF) private val usersReference: DatabaseReference,
+        private val firebase: Firebase
+    ) : UserRepository {
 
 
-    override val userId: String?
-        get() = firebase.auth.currentUser?.uid
+        override val userId: String?
+            get() = firebase.auth.currentUser?. uid
 
-    override fun insertUser(user: User) {
-        usersReference.child(userId!!).setValue(user)
-    }
+        override fun insertUser(user: User) {
+            usersReference.child(userId!!).setValue(user)
+        }
 
-    override fun deleteUser(uId: String) {
-        usersReference.child(uId).removeValue()
-    }
+        override fun deleteUser(uId: String) {
+            usersReference.child(uId).removeValue()
+        }
 
 
-    override fun getUser() {
+        override fun getUser() {
 
-    }
+        }
 
-    override fun getUserList(list:MutableLiveData<List<User>>) {
-        val eventListener = object :ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val dataList = mutableListOf<User>()
-                for (child in snapshot.children){
-                    val user = child.getValue(User::class.java)
-                    user?.let {
-                        dataList.add(user)
+        override fun getUserList(list:MutableLiveData<List<User>>) {
+            val eventListener = object :ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val dataList = mutableListOf<User>()
+                    for (child in snapshot.children){
+                        val user = child.getValue(User::class.java)
+                        user?.let {
+                            dataList.add(user)
+                        }
+                        list.postValue(dataList)
                     }
-                    list.postValue(dataList)
+
                 }
 
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
+            usersReference.addValueEventListener(eventListener)
         }
-        usersReference.addValueEventListener(eventListener)
     }
-}
 

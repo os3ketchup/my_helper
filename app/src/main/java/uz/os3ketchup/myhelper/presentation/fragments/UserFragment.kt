@@ -6,21 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.Firebase
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.database
 import uz.os3ketchup.myhelper.AuthApp
 import uz.os3ketchup.myhelper.databinding.FragmentUserBinding
-import uz.os3ketchup.myhelper.di.DataModule.Companion.USERS_REF
-import uz.os3ketchup.myhelper.domain.User
 import uz.os3ketchup.myhelper.presentation.MainActivity
-import uz.os3ketchup.myhelper.presentation.viewmodels.UserViewModel
+import uz.os3ketchup.myhelper.presentation.viewmodels.MainViewModel
 import uz.os3ketchup.myhelper.presentation.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
@@ -32,7 +23,7 @@ class UserFragment : Fragment() {
         get() = _binding ?: throw RuntimeException("FragmentUserBinding == null")
 
 
-    private lateinit var viewModel: UserViewModel
+    private lateinit var viewModel: MainViewModel
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -57,7 +48,7 @@ class UserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
         binding.btnUser.setOnClickListener {
             val userName = binding.etUser.text.toString()
             viewModel.insertUser(userName = userName, photoUrl = "")

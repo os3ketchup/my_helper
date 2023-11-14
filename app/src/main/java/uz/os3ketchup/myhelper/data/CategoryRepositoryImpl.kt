@@ -24,13 +24,13 @@ class CategoryRepositoryImpl @Inject constructor(
     override val userId: String?
         get() = firebase.auth.currentUser?.uid
 
-
-    override fun deleteCategory(categoryId: String) {
-
+    override fun deleteCategory(category: Category) {
+        categoryReference.child(category.name!!).removeValue()
     }
 
+
     override fun insertCategory(category: Category) {
-        categoryReference.child(userId!!).setValue(category)
+        categoryReference.child(category.name!!).setValue(category)
     }
 
     override fun getListCategory(list: MutableLiveData<List<Category>>) {
@@ -44,11 +44,9 @@ class CategoryRepositoryImpl @Inject constructor(
                     }
                     list.postValue(dataList)
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
         }
         categoryReference.addValueEventListener(eventListener)

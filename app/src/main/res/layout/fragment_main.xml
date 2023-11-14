@@ -41,10 +41,10 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rv_user">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
+            android:layout_height="match_parent">
+
 
             <ImageButton
                 android:id="@+id/btn_add_category"
@@ -52,21 +52,25 @@
                 android:layout_height="50dp"
                 android:background="@drawable/circle_background"
                 android:clickable="true"
-                android:src="@drawable/ic_add" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                android:src="@drawable/ic_add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_category"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:orientation="horizontal"
-        tools:listitem="@layout/item_category"
+        android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_user" />
+        app:layout_constraintTop_toBottomOf="@id/rv_user"
+        tools:listitem="@layout/item_category" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

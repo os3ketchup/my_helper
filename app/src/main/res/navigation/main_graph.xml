@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_mainFragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
@@ -30,5 +33,14 @@
         <argument
             android:name="user"
             app:argType="uz.os3ketchup.myhelper.domain.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="uz.os3ketchup.myhelper.presentation.fragments.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" >
+        <argument
+            android:name="category"
+            app:argType="uz.os3ketchup.myhelper.domain.Category" />
     </fragment>
 </navigation>

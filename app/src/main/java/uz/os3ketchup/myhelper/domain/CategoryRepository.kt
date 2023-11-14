@@ -6,7 +6,7 @@ import com.google.firebase.database.DatabaseReference
 interface CategoryRepository {
 
     val userId: String?
-    fun deleteCategory(categoryId:String)
+    fun deleteCategory(category: Category)
     fun insertCategory(category: Category)
     fun getListCategory(list: MutableLiveData<List<Category>>)
 }

@@ -9,7 +9,7 @@ import androidx.navigation.ui.NavigationUI
 import uz.os3ketchup.myhelper.AuthApp
 import uz.os3ketchup.myhelper.R
 import uz.os3ketchup.myhelper.databinding.ActivityMainBinding
-import uz.os3ketchup.myhelper.presentation.viewmodels.UserViewModel
+import uz.os3ketchup.myhelper.presentation.viewmodels.MainViewModel
 import uz.os3ketchup.myhelper.presentation.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private lateinit var viewModel: UserViewModel
+    private lateinit var viewModel: MainViewModel
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         component.inject(this)
-        viewModel = ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
 
 
         val navHostFragment =

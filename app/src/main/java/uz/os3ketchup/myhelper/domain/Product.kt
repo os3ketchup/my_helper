@@ -6,5 +6,6 @@ data class Product(
     var unit:String = "",
     var categoryName:String = "",
     var photoUrl:String = "",
-    var price:String = ""
+    var price:String = "",
+    var amount:String = ""
 )

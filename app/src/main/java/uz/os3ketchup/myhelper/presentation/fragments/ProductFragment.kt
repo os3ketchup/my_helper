@@ -2,13 +2,12 @@ package uz.os3ketchup.myhelper.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.core.view.get
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import uz.os3ketchup.myhelper.AuthApp
 import uz.os3ketchup.myhelper.R
@@ -16,7 +15,6 @@ import uz.os3ketchup.myhelper.databinding.FragmentProductBinding
 import uz.os3ketchup.myhelper.presentation.adapters.ProductListAdapter
 import uz.os3ketchup.myhelper.presentation.adapters.ProductListAdapter.Companion.MAX_POOL_SIZE
 import uz.os3ketchup.myhelper.presentation.adapters.ProductListAdapter.Companion.VIEW_TYPE_PRODUCT
-import uz.os3ketchup.myhelper.presentation.viewmodels.MainViewModel
 import uz.os3ketchup.myhelper.presentation.viewmodels.ProductViewModel
 import uz.os3ketchup.myhelper.presentation.viewmodels.ViewModelFactory
 import javax.inject.Inject
@@ -65,6 +63,7 @@ class ProductFragment : Fragment() {
         viewModel.productList.observe(viewLifecycleOwner) {
             productListAdapter.submitList(it)
         }
+
         binding.btnSave.setOnClickListener {
             val name = binding.tieProductName.text.toString()
             val price = binding.tiePrice.text.toString()
@@ -106,8 +105,6 @@ class ProductFragment : Fragment() {
 
     private fun setupClickListener() {
         productListAdapter.onProductItemClickListener = {
-
-
         }
     }
 

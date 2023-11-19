@@ -43,4 +43,14 @@
             android:name="category"
             app:argType="uz.os3ketchup.myhelper.domain.Category" />
     </fragment>
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="uz.os3ketchup.myhelper.presentation.fragments.OrderFragment"
+        android:label="fragment_order"
+        tools:layout="@layout/fragment_order" />
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="uz.os3ketchup.myhelper.presentation.fragments.ProductFragment"
+        android:label="fragment_product"
+        tools:layout="@layout/fragment_product" />
 </navigation>

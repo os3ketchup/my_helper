@@ -1,59 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="700dp"
+    android:orientation="vertical">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_choose_product"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tie_choose_product"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Mahsulot" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/tv_product"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:layout_weight="0.8"
+            android:background="@drawable/outlined_et_style"
+            android:hint="Product"
+            android:padding="16dp"
+            app:layout_constraintBottom_toTopOf="@id/btn_save"
+            app:layout_constraintHorizontal_weight="6"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/et_amount"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread" />
 
-    <Spinner
-        android:id="@+id/spinner_product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        app:layout_constraintBottom_toBottomOf="@id/til_choose_product"
-        app:layout_constraintRight_toRightOf="@id/til_choose_product"
-        app:layout_constraintTop_toTopOf="@id/til_choose_product" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_choose_amount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_choose_product">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:layout_weight="0.2">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tie_choose_amount"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Miqdori" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_amount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="miqdori"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
-    <Spinner
-        android:id="@+id/spinner_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        app:layout_constraintBottom_toBottomOf="@id/til_choose_amount"
-        app:layout_constraintRight_toRightOf="@id/til_choose_amount"
-        app:layout_constraintTop_toTopOf="@id/til_choose_amount" />
 
     <Button
         android:id="@+id/btn_save"
@@ -61,20 +51,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Saqlash"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_choose_amount" />
+        android:text="Qo'shish" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="400dp"
         android:layout_margin="16dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_send"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_save"
-        tools:listitem="@layout/item_product" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_pick_product" />
 
     <Button
         android:id="@+id/btn_send"
@@ -82,8 +67,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Yuborish"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="Yuborish" />
+</LinearLayout>

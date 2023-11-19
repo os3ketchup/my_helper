@@ -6,7 +6,7 @@ import com.google.firebase.database.DatabaseReference
 
 interface ProductRepository {
      val productReference: DatabaseReference
-    fun insertProduct(product: Product)
+    fun insertProduct(name:String,price:String,unit:String)
     fun deleteProduct(product: Product)
     fun getProductList(list: MutableLiveData<List<Product>>)
 }

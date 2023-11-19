@@ -19,10 +19,13 @@ class ProductRepositoryImpl @Inject constructor(
 
 ) : ProductRepository {
 
-
-    override fun insertProduct(product: Product) {
-
-        productReference.child(productReference.push().key!!).setValue(product)
+    override fun insertProduct(
+        name: String,
+        price: String,
+        unit: String
+    ) {
+        val product = Product(id = productReference.push().key!!, name = name, unit =  unit, price =  price)
+        productReference.child(product.id).setValue(product)
     }
 
     override fun deleteProduct(product: Product) {

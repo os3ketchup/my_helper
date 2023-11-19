@@ -28,4 +28,6 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(ProductViewModel::class)
     fun bindProductViewModel(viewModel:ProductViewModel):ViewModel
+
+
 }

@@ -89,6 +89,9 @@ class OtpFragment : Fragment() {
                 is Error -> {
 
                 }
+                else->{
+
+                }
 
             }
         }

@@ -10,7 +10,7 @@ import uz.os3ketchup.myhelper.di.DaggerAuthComponent
 
 class AuthApp : Application() {
     val component by lazy {
-        DaggerAuthComponent.factory().create(this)
+        DaggerAuthComponent.factory().create(this,System.currentTimeMillis())
     }
 
     override fun onCreate() {

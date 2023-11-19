@@ -4,9 +4,11 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import uz.os3ketchup.myhelper.data.CategoryRepositoryImpl
+import uz.os3ketchup.myhelper.data.OrderRepositoryImpl
 import uz.os3ketchup.myhelper.data.ProductRepositoryImpl
 import uz.os3ketchup.myhelper.data.UserRepositoryImpl
 import uz.os3ketchup.myhelper.domain.CategoryRepository
+import uz.os3ketchup.myhelper.domain.OrderRepository
 import uz.os3ketchup.myhelper.domain.ProductRepository
 import uz.os3ketchup.myhelper.domain.UserRepository
 
@@ -24,4 +26,8 @@ interface DomainModule {
     @ApplicationScope
     @Binds
     fun provideProductRepository(impl: ProductRepositoryImpl): ProductRepository
+
+    @ApplicationScope
+    @Binds
+    fun provideOrderRepository(impl: OrderRepositoryImpl): OrderRepository
 }

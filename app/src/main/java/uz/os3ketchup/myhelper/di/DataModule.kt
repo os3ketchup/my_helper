@@ -37,9 +37,19 @@ class DataModule {
         return firebaseDatabase.getReference(PRODUCTS_REF)
     }
 
+
+    @ApplicationScope
+    @Provides
+    @Named(ORDERS_REF)
+    fun provideOrderReference(firebaseDatabase: FirebaseDatabase): DatabaseReference {
+        return firebaseDatabase.getReference(ORDERS_REF)
+    }
+
+
     companion object {
         const val USERS_REF = "users_ref"
         const val CATEGORIES_REF = "categories_ref"
         const val PRODUCTS_REF = "products_ref"
+        const val ORDERS_REF = "orders_ref"
     }
 }

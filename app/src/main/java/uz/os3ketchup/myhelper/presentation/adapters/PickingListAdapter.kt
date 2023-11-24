@@ -32,7 +32,7 @@ class PickingListAdapter : ListAdapter<Product, PickingItemViewHolder>(PickingIt
         }
         binding.tvProductName.text = product.name
         binding.tvAmount.text = product.amount
-        binding.tvPrice.text = product.price
+        binding.tvPrice.text = product.price.toString()
     }
 
     companion object {

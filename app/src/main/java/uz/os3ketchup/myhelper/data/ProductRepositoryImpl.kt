@@ -22,9 +22,10 @@ class ProductRepositoryImpl @Inject constructor(
     override fun insertProduct(
         name: String,
         price: String,
-        unit: String
+        unit: String,
+        category: Category
     ) {
-        val product = Product(id = productReference.push().key!!, name = name, unit =  unit, price =  price)
+        val product = Product(id = productReference.push().key!!, name = name, unit =  unit, price =  price, categoryName = category.name!!)
         productReference.child(product.id).setValue(product)
     }
 

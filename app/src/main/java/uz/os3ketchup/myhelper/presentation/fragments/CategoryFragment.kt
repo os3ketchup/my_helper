@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import uz.os3ketchup.myhelper.R
@@ -33,14 +34,20 @@ class CategoryFragment : Fragment() {
         binding.tbChatTitle.text = args.category.name
 
 
-        val adapter = ViewPagerAdapter(this) // Use your Fragment reference
+        val adapter = ViewPagerAdapter(this,args.category) // Use your Fragment reference
 
-       binding.viewPager.adapter = adapter
+        binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-           when(position){
-               0->tab.text = "Buyurtmalar"
-               1->tab.text = "Mahsulotlar"
-           }
+            when (position) {
+                0 -> {
+                    tab.text = "Buyurtmalar"
+                }
+
+                1 -> {
+                    tab.text = "Mahsulotlar"
+                }
+
+            }
         }.attach()
 
     }

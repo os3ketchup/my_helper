@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import uz.os3ketchup.myhelper.AuthApp
 import uz.os3ketchup.myhelper.R
 import uz.os3ketchup.myhelper.databinding.FragmentProductBinding
+import uz.os3ketchup.myhelper.domain.Category
 import uz.os3ketchup.myhelper.presentation.adapters.ProductListAdapter
 import uz.os3ketchup.myhelper.presentation.adapters.ProductListAdapter.Companion.MAX_POOL_SIZE
 import uz.os3ketchup.myhelper.presentation.adapters.ProductListAdapter.Companion.VIEW_TYPE_PRODUCT
@@ -57,20 +58,22 @@ class ProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory)[ProductViewModel::class.java]
+        val category = arguments?.getParcelable<Category>("categoryName")
         setupRecyclerView()
         setupClickListener()
         setSpinner()
-        viewModel.productList.observe(viewLifecycleOwner) {
-            productListAdapter.submitList(it)
+        viewModel.productList.observe(viewLifecycleOwner) { productList ->
+            val t = productList.filter {
+                it.categoryName == category?.name
+            }
+            productListAdapter.submitList(t)
         }
 
         binding.btnSave.setOnClickListener {
             val name = binding.tieProductName.text.toString()
             val price = binding.tiePrice.text.toString()
             viewModel.insertProduct(
-                productName = name,
-                productPrice = price,
-                productUnit = selectedText,
+                name, price.toDouble(), selectedText, category
             )
         }
     }

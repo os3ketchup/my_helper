@@ -6,8 +6,9 @@ class InsertProductUseCase @Inject constructor(private val repository: ProductRe
     fun insertProduct(
         name: String,
         price: String,
-        unit: String
+        unit: String,
+        category: Category
     ) {
-        repository.insertProduct(name, price, unit)
+        repository.insertProduct(name, price, unit,category)
     }
 }

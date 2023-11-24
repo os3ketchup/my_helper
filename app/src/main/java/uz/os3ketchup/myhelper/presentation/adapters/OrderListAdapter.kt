@@ -30,8 +30,9 @@ class OrderListAdapter : ListAdapter<Order, OrderItemViewHolder>(OrderItemDiffCa
         binding.root.setOnClickListener {
             onOrderItemClickListener?.invoke(order)
         }
+
         val totalPrice = order.list.sumOf {
-            it.price.toInt()
+            (it.price.toInt()*it.amount.toInt()).toLong()
         }
         binding.tvTotal.text = totalPrice.toString()
 

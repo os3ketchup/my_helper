@@ -13,8 +13,11 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout.LayoutParams
 import android.widget.ListView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -24,6 +27,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import uz.os3ketchup.myhelper.AuthApp
 import uz.os3ketchup.myhelper.R
 import uz.os3ketchup.myhelper.databinding.FragmentOrderBinding
+import uz.os3ketchup.myhelper.domain.Category
 import uz.os3ketchup.myhelper.domain.Product
 import uz.os3ketchup.myhelper.presentation.adapters.OrderListAdapter
 import uz.os3ketchup.myhelper.presentation.adapters.OrderListAdapter.Companion.MAX_POOL_SIZE
@@ -46,6 +50,10 @@ class OrderFragment : Fragment() {
     private lateinit var pickingListAdapter: PickingListAdapter
     private lateinit var orderListAdapter: OrderListAdapter
     private var productPosition = 0
+
+    val category by lazy {
+        arguments?.getParcelable<Category>("categoryName")
+    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -72,7 +80,7 @@ class OrderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory)[ProductViewModel::class.java]
-        viewModel.orderList.observe(viewLifecycleOwner){
+        viewModel.orderList.observe(viewLifecycleOwner) {
             orderListAdapter.submitList(it)
         }
         setupRecyclerView()
@@ -109,12 +117,15 @@ class OrderFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_bottom_sheet)
         val addButton = view.findViewById<Button>(R.id.btn_save)
         val sendButton = view.findViewById<Button>(R.id.btn_send)
+        val spinnerButton = view.findViewById<ImageView>(R.id.spinner_product)
+        view.findViewById<TextView>(R.id.tv_category_name).visibility = View.GONE
+        view.findViewById<ImageView>(R.id.spinner_category).visibility = View.GONE
         setupAddButton(addButton, recyclerView, tvProduct, etAmount)
         sendButton.setOnClickListener {
-           viewModel.insertOrder(uniqueProductList,"2x","x2")
+            viewModel.insertOrder(uniqueProductList, "2x", "x2")
         }
         bottomSheetDialog.setContentView(view)
-        showTvDialog(tvProduct)
+        showTvDialog(spinnerButton, tvProduct)
         bottomSheetDialog.show()
     }
 
@@ -130,22 +141,30 @@ class OrderFragment : Fragment() {
                 val id = it[productPosition].id
                 val productName = tvProduct.text.toString()
                 val amountProduct = etAmount.text.toString()
-                val price = it[productPosition].price
+
+                val price = it.find { product->
+                    product.name == productName
+                }?.price?:""
+
                 val product =
                     Product(name = productName, amount = amountProduct, id = id, price = price)
                 customProductList.add(product)
             }
-             uniqueProductList = customProductList.reversed().groupBy {
-                it.name
-            }.values.map { it.first() }.reversed()
+            uniqueProductList = customProductList
+                .reversed()
+                .groupBy { it.name }
+                .values
+                .map { it.first() }
+                .reversed()
+
             pickingListAdapter.submitList(uniqueProductList)
 
             Log.d(TRY, "showBottomSheet: $customProductList")
         }
     }
 
-    private fun showTvDialog(tvProduct: TextView) {
-        tvProduct.setOnClickListener {
+    private fun showTvDialog(buttonDropDown: ImageView, tvProduct: TextView) {
+        buttonDropDown.setOnClickListener {
             val dialog = Dialog(requireContext())
             dialog.setContentView(R.layout.dialog_product)
             dialog.window?.setLayout(LayoutParams.MATCH_PARENT, 1000)
@@ -153,7 +172,9 @@ class OrderFragment : Fragment() {
             val listView = dialog.findViewById<ListView>(R.id.list_view)
             dialog.show()
             viewModel.productList.observe(viewLifecycleOwner) { productList ->
-                val productNameList = productList.map { product ->
+                val productNameList = productList.filter {
+                    it.categoryName == category?.name
+                }.map { product ->
                     product.name
                 }
 

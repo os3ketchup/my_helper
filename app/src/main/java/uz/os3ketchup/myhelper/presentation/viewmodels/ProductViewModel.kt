@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import uz.os3ketchup.myhelper.domain.Category
 import uz.os3ketchup.myhelper.domain.DeleteOrderUseCase
 import uz.os3ketchup.myhelper.domain.DeleteProductUseCase
 import uz.os3ketchup.myhelper.domain.GetOrderListUseCase
@@ -34,8 +36,14 @@ class ProductViewModel @Inject constructor(
     private val _orderList = MutableLiveData<List<Order>>()
     val orderList: LiveData<List<Order>> get() = _orderList
 
-    private val _customProductList = MutableLiveData<List<Product>>()
-    val customProductList:LiveData<List<Product>> get() = _customProductList
+    private val _errorInputName = MutableLiveData<Boolean>()
+    val errorInputName: LiveData<Boolean> get() = _errorInputName
+
+    private val _errorInputPrice = MutableLiveData<Boolean>()
+    val errorInputPrice: LiveData<Boolean> get() = _errorInputPrice
+
+    private val _product = MutableLiveData<Product>()
+    val product: LiveData<Product> get() = _product
 
 
     init {
@@ -48,17 +56,53 @@ class ProductViewModel @Inject constructor(
         getProductList.getUserList(list = _productList)
     }
 
-     fun getCustomProductList(customList:MutableList<Product>){
-        _customProductList.value = customList
-    }
-
     fun deleteProduct(product: Product) {
         deleteProduct.deleteCategory(product)
     }
 
-    fun insertProduct(productName: String, productPrice: String, productUnit: String) {
+    fun insertProduct(
+        inputName: String?,
+        inputPrice: Double?,
+        inputUnit: String?,
+        category: Category?
+    ) {
+        val productName = parseName(inputName)
+        val productPrice = parsePrice(inputPrice.toString())
+        val fieldsValid = validateInput(productName, productPrice)
+        if (fieldsValid) {
 
-        insertProduct.insertProduct(productName, productPrice, productUnit)
+                    insertProduct.insertProduct( name = productName,
+                        category = category!!,
+                        price = productPrice.toString(),
+                        unit =inputUnit!!)
+
+        }
+    }
+
+    private fun validateInput(productName: String, productPrice: Double): Boolean {
+        var result = true
+        if (productName.isBlank()) {
+            _errorInputName.value = true
+            result = false
+        }
+
+        if (productPrice <= 0) {
+            _errorInputPrice.value = true
+            result = false
+        }
+        return result
+    }
+
+    private fun parsePrice(inputPrice: String?): Double {
+        return try {
+            inputPrice?.trim()?.toDouble() ?: 0.0
+        } catch (e: Exception) {
+            0.0
+        }
+    }
+
+    private fun parseName(inputName: String?): String {
+        return inputName?.trim() ?: ""
     }
 
 
